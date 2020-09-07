@@ -1,6 +1,6 @@
 import React from 'react';
 import axios from 'axios';
-import PhotoGrid from './PhotoGrid.jsx';
+import PhotoGrid from './PhotoGrid/PhotoGrid.jsx';
 //import PhotoCarousel from './PhotoCarousel.jsx';
 
 class Images extends React.Component {

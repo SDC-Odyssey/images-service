@@ -1,5 +1,4 @@
 const path = require('path');
-const fs = require('fs');
 
 module.exports = {
   entry: path.join(__dirname, './client/src/index.js'),
@@ -10,7 +9,7 @@ module.exports = {
   module: {
     rules: [
       {
-        test: [/\.js$/, /\.jsx?$/],
+        test: [/\.js$/, /\.jsx$/],
         exclude: /node_modules/,
         loader: 'babel-loader',
         options: {
@@ -21,5 +20,8 @@ module.exports = {
         }
       }
     ]
+  },
+  resolve: {
+    extensions: ['.js', '.jsx'],
   }
 };
