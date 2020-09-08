@@ -21,7 +21,7 @@ class Images extends React.Component {
   componentDidMount() {
     let search = window.location.search;
     let roomId = Number(search.split('?').pop());
-    console.log('roomId (not being used now): ', roomId);
+    console.log('roomId: ', roomId);
     this.getPhotosByRoomId(roomId);
   }
 
