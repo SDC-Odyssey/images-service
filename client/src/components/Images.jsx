@@ -1,7 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 import PhotoGrid from './PhotoGrid/PhotoGrid.jsx';
-//import PhotoCarousel from './PhotoCarousel.jsx';
+import Carousel from './Carousel/Carousel.jsx';
 
 class Images extends React.Component {
   constructor(props) {
@@ -12,7 +12,7 @@ class Images extends React.Component {
       isSuperHost: false,
       hasLoaded: false,
       gridClicked: false,
-      clickedPhoto: null
+      clickedPic: null
     }
     this.getPhotosByRoomId = this.getPhotosByRoomId.bind(this);
     this.handleClick = this.handleClick.bind(this);
@@ -46,10 +46,10 @@ class Images extends React.Component {
   }
 
   handleClick(e) {
-    e.prevent.default();
+    e.preventDefault();
     this.setState({
       gridClicked: !this.state.gridClicked,
-      clickedPhoto: e.target
+      clickedPic: e.target
     });
   }
 
@@ -62,12 +62,13 @@ class Images extends React.Component {
               <PhotoGrid photos={ this.state.photos } onClick={this.handleClick} />
           </div>
         );
+      } else {
+        return (
+          <div className="photo-carousel">
+            <Carousel photos={ this.state.photos } clickedPic={ this.state.clickedPic } handleClick={this.handleClick} />
+          </div>
+        );
       }
-      // return (
-      //   <div className="photo-carousel">
-      //     <PhotoCarousel photos={ this.state.photos } clickedPhoto={ this.state.clickedPhoto } handleClick={ this.handleClick } />
-      //   </div>
-      // );
     }
     return (
       <h3>Unique Glamping Experience</h3>

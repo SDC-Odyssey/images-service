@@ -6,7 +6,7 @@ const dotenv = require('dotenv');
 dotenv.config({ path: path.resolve(__dirname, './.env') });
 
 
-let getUnsplashRooms = (query, max) => {
+let getUnsplashRooms = (query = 'living,indoors,room', max = 8) => {
   let options = {
     method: 'GET',
     url: `https://api.unsplash.com/search/photos/?query=${query}&page=1&per_page=${max}&orientation=landscape&client_id=${process.env.UNSPLASH_API_KEY}`
@@ -24,7 +24,7 @@ let getUnsplashRooms = (query, max) => {
     });
 };
 
-let getUnsplashHosts = (query) => {
+let getUnsplashHosts = (query = 'person,happy') => {
   let options = {
     method: 'GET',
     url: `https://api.unsplash.com/search/photos/?query=${query}&page=1&per_page=1&orientation=landscape&client_id=${process.env.UNSPLASH_API_KEY}`
@@ -42,7 +42,7 @@ let getUnsplashHosts = (query) => {
     });
 };
 
-let getUnsplashReviewers = (query, max) => {
+let getUnsplashReviewers = (query = 'person,cheerful', max = 10) => {
   let options = {
     method: 'GET',
     url: `https://api.unsplash.com/search/photos/?query=${query}&page=1&per_page=${max}&orientation=landscape&client_id=${process.env.UNSPLASH_API_KEY}`

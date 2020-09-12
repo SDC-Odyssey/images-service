@@ -12,9 +12,9 @@ async function allUrls() {
     return roomQueries[index];
   };
   let randomRoomQuery = getRandomRoomPic();
-  let max = faker.random.number({'min': 3, 'max': 12});
+  let minMax = faker.random.number({'min': 5, 'max': 12});
   let roomUrls = [];
-  let rooms = await getUnsplashRooms(randomRoomQuery, max);
+  let rooms = await getUnsplashRooms(randomRoomQuery, minMax);
   //can write synchronously here, because the timing is handled under hood???
   for (let i = 0; i < rooms.length; i++) { //getting into loop before fulfilled
     roomUrls.push(rooms[i].urls.raw + "&w=1057");
@@ -40,9 +40,9 @@ async function allUrls() {
     return reviewerQueries[index];
   };
   let randomReviewerQuery = getRandomReviewerPic();
-  max = faker.random.number({'min': 3, 'max': 16});
+  minMax = faker.random.number({'min': 3, 'max': 16});
   let reviewerUrls = [];
-  let reviewers = await getUnsplashReviewers(randomReviewerQuery, max)
+  let reviewers = await getUnsplashReviewers(randomReviewerQuery, minMax)
   for (let i = 0; i < reviewers.length; i++) { //getting into loop before fulfilled
     reviewerUrls.push(reviewers[i].urls.raw + "&w=204");
   }
@@ -79,9 +79,9 @@ async function generatePhotos() {
 };
 
 
-generatePhotos()
-  .then((results) => {
-    console.log('generatePhotos results: ', results);
-  })
+// generatePhotos()
+//   .then((results) => {
+//     console.log('generatePhotos results: ', results);
+//   })
 
 exports.generatePhotos = generatePhotos;
