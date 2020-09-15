@@ -13,16 +13,20 @@ class Carousel extends React.Component {
     };
     this.rightArrowClick = this.rightArrowClick.bind(this);
     this.leftArrowClick = this.leftArrowClick.bind(this);
+    // console.log('🧬 this.state.clickedPic: ', this.state.clickedPic); //not string
   }
 
   rightArrowClick(e) {
     e.preventDefault();
     const { photos, clickedPic, transform } = this.state;
+    //below
     const nextImagePosition = photos.indexOf({ clickedPic }.clickedPic) + 1;
     const nextImage = photos[nextImagePosition];
     let transformed;
+    //console.log('next: ', nextImage);
     if (nextImage !== undefined) {
       transformed = transform - 110;
+      //console.log('🇲🇳 1 transformed in Carousel: ', transformed);
       this.setState({
         clickedPic: nextImage,
         transform: transformed
@@ -51,6 +55,7 @@ class Carousel extends React.Component {
       });
     } else {
       transformed = (photos.length * -110) + 380;
+      //console.log('🇲🇳 4 transformed in Carousel: ', transformed);
       this.setState({
         clickedPic: { photos }.photos[imagesListLength - 1],
         transform: transformed,

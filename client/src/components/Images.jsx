@@ -55,6 +55,7 @@ class Images extends React.Component {
       gridClicked: !this.state.gridClicked,
       clickedPic: e.target.src
     });
+    //console.log('🇬🇧this.state.clickedPic in handleClick Images.jsx: ', this.state.clickedPic); null
   }
 
   render() {
