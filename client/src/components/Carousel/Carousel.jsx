@@ -1,10 +1,11 @@
 import React from 'react';
 import { Container, Button, CloseButton, CloseSvg, Frame, TableRow, HeaderDiv, ArrowAndImageContainer, LeftArrowButton, RightArrowButton, PreviousSvg, NextSvg, CurrentPhotoFrame, CurrentPhoto } from './style.Carousel';
+import Slider from './Slider.jsx';
 
 class Carousel extends React.Component {
   constructor(props) {
     super(props);
-    console.log('props in carousel: ', props);
+    console.log('props in carousel: ', props); //photos array, clickedPic (not correct value), handleClick
     this.state = {
       photos: this.props.photos,
       clickedPic: this.props.clickedPic,
@@ -79,6 +80,7 @@ class Carousel extends React.Component {
               <CurrentPhoto src={this.state.clickedPic} alt="clicked photo" />
             </CurrentPhotoFrame>
           </TableRow>
+          <Slider photos={this.state.photos} clickedPic={this.state.clickedPic} transform={this.state.transform} />
         </Frame>
       </Container>
     );

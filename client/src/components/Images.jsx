@@ -3,6 +3,9 @@ import axios from 'axios';
 import PhotoGrid from './PhotoGrid/PhotoGrid.jsx';
 import Carousel from './Carousel/Carousel.jsx';
 
+//let serverUrl = 'http://ec2-3-137-156-133.us-east-2.compute.amazonaws.com';
+let serverUrl = 'http://localhost:3001';
+
 class Images extends React.Component {
   constructor(props) {
     super(props);
@@ -27,7 +30,7 @@ class Images extends React.Component {
 
   getPhotosByRoomId(id) {
     //console.log('id: ', id);
-    axios.get(`http://localhost:3001/images/${id}`)
+    axios.get(`${serverUrl}/images/${id}`)
       .then((response) => {
         console.log('images data by room id: ', response.data);
         const roomPhotos = response.data[0].room_photos.slice();
@@ -47,9 +50,10 @@ class Images extends React.Component {
 
   handleClick(e) {
     e.preventDefault();
+    //console.log('💈e.target.src: ', e.target.src);
     this.setState({
       gridClicked: !this.state.gridClicked,
-      clickedPic: e.target
+      clickedPic: e.target.src
     });
   }
 
