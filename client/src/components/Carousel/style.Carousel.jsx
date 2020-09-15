@@ -12,34 +12,25 @@ overflow-y: auto !important;
 transform: translate3d(0px, 0px, 0px) !important;
 `;
 
-export const Button = styled.button`
-  text-rendering: auto;
-  color: initial;
-  letter-spacing: normal;
-  word-spacing: normal;
-  text-transform: none;
-  text-indent: 0px;
-  text-shadow: none;
-  text-align: start;
-  font: 400 11px system-ui;
-  background-color: inherit;
-  border: none;
-  font-size: 100%;
-  &:focus {outline:0;};
-`;
 export const CloseButton = styled.div`
   line-height: 1.43;
   margin: 0;
   -webkit-font-smoothing: antialiased;
-
   background-color: inherit;
   position: absolute;
   right: 0px;
   top: 0px;
   width: 32px;
   height: 32px;
-  padding: 16px 28px 8px !important;
+  padding: 20px 60px 20px 40px;
   `;
+
+export const Button = styled.button`
+  color: initial;
+  background-color: inherit;
+  border: none;
+  &:focus {outline:0;};
+`;
 
 export const CloseSvg = styled.svg`
   cursor: pointer;
@@ -47,8 +38,6 @@ export const CloseSvg = styled.svg`
   width: 2em;
   display: block;
   fill: rgb(255, 255, 255);
-  font-weight: 300;
-  font-size: 90%;
   fill: rgb(255, 255, 255);
 `;
 
@@ -63,10 +52,6 @@ export const TableRow = styled.div`
   display: table-row !important;
 `;
 
-export const HeaderDiv = styled.div`
-  padding: 66px 15px 20px !important;
-`;
-
 export const ArrowAndImageContainer = styled.div`
   display: table-row !important;
   height: 100% !important;
@@ -77,7 +62,6 @@ export const LeftArrowButton = styled.button`
   top: 0px !important;
   height: 100% !important;
   z-index: 3 !important;
-  font-size: medium !important;
   width: 40px !important;
   left: 0px !important;
   background: none !important;
@@ -85,15 +69,7 @@ export const LeftArrowButton = styled.button`
   border-style: initial !important;
   border-color: initial !important;
   border-image: initial !important;
-  text-rendering: auto;
   color: initial;
-  letter-spacing: normal;
-  word-spacing: normal;
-  text-transform: none;
-  text-indent: 0px;
-  text-shadow: none;
-  text-align: start;
-  font: 400 11px system-ui;
   &:focus {outline:0;};
   padding: 1px 7px 2px;
 `;
@@ -103,22 +79,13 @@ export const RightArrowButton = styled.button`
   top: 60px !important;
   height: 80% !important;
   z-index: 3 !important;
-  font-size: medium !important;
   right: 0px !important;
   background: none !important;
   border-width: 0px !important;
   border-style: initial !important;
   border-color: initial !important;
   border-image: initial !important;
-  text-rendering: auto;
   color: initial;
-  letter-spacing: normal;
-  word-spacing: normal;
-  text-transform: none;
-  text-indent: 0px;
-  text-shadow: none;
-  text-align: start;
-  font: 400 11px system-ui;
   &:focus {outline:0;};
   padding: 1px 7px 2px;
 `;
@@ -147,7 +114,7 @@ export const CurrentPhotoFrame = styled.div`
 export const CurrentPhoto = styled.img`
   max-width: 100%;
   height: 470px;
-  object-fit: cover;
+  object-fit: contain;
   background-position: 50% 50%;
   background-size: cover;
 `;

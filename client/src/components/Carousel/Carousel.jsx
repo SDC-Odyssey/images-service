@@ -5,7 +5,7 @@ import Slider from './Slider.jsx';
 class Carousel extends React.Component {
   constructor(props) {
     super(props);
-    console.log('props in carousel: ', props); //photos array, clickedPic (not correct value), handleClick
+    console.log('props in carousel: ', props); //photos array, clickedPic, handleClick
     this.state = {
       photos: this.props.photos,
       clickedPic: this.props.clickedPic,
@@ -23,10 +23,16 @@ class Carousel extends React.Component {
     let transformed;
     if (nextImage !== undefined) {
       transformed = transform - 110;
-      this.setState({ clickedPic: nextImage, transform: transformed });
+      this.setState({
+        clickedPic: nextImage,
+        transform: transformed
+      });
     } else {
       transformed = 280;
-      this.setState({ clickedPic: photos[0], transform: transformed });
+      this.setState({
+        clickedPic: photos[0],
+        transform: transformed
+      });
     }
   }
 
@@ -39,7 +45,10 @@ class Carousel extends React.Component {
     let transformed;
     if (previousImage !== undefined) {
       transformed = transform + 110;
-      this.setState({ clickedPic: previousImage, transform: transformed });
+      this.setState({
+        clickedPic: previousImage,
+        transform: transformed
+      });
     } else {
       transformed = (photos.length * -110) + 380;
       this.setState({
@@ -61,7 +70,6 @@ class Carousel extends React.Component {
         </CloseButton>
         <Frame>
           <TableRow>
-            <HeaderDiv />
           </TableRow>
           <TableRow>
             <ArrowAndImageContainer>
@@ -77,7 +85,7 @@ class Carousel extends React.Component {
               </RightArrowButton>
             </ArrowAndImageContainer>
             <CurrentPhotoFrame>
-              <CurrentPhoto src={this.state.clickedPic} alt="clicked photo" />
+              <CurrentPhoto src={this.state.clickedPic} />
             </CurrentPhotoFrame>
           </TableRow>
           <Slider photos={this.state.photos} clickedPic={this.state.clickedPic} transform={this.state.transform} />

@@ -17,7 +17,6 @@ export const MainPhoto = styled.div`
   grid-column-end: 3;
   grid-row-start: 1;
   grid-row-end: 3;
-
   border: solid 1px #484848;
   overflow: hidden;
   ${Grid}:hover &:hover {
@@ -34,7 +33,6 @@ export const Img = styled.img`
   -moz-transition: all 0.3s;
   -webkit-transition: all 0.3s;
   transition: all 0.3s;
-
   &:hover {
     -moz-transition: all 0.3s;
     -webkit-transition: all 0.3s;
