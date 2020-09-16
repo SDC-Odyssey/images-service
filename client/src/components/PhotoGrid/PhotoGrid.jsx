@@ -10,16 +10,16 @@ const PhotoGrid = (props) => {
         <Img src={props.photos[0]} alt="main photo" />
       </MainPhoto>
         <GridPhoto2>
-          <img src={props.photos[1]} />
+          <Img src={props.photos[1]} />
         </GridPhoto2>
         <GridPhoto3>
-          <img src={props.photos[2]} />
+          <Img src={props.photos[2]} />
         </GridPhoto3>
         <GridPhoto4>
-          <img src={props.photos[3]} />
+          <Img src={props.photos[3]} />
         </GridPhoto4>
         <GridPhoto5>
-          <img src={props.photos[4]} />
+          <Img src={props.photos[4]} />
         </GridPhoto5>
     </Grid>
   );
