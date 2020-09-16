@@ -32,7 +32,7 @@ class Images extends React.Component {
     //console.log('id: ', id);
     axios.get(`${serverUrl}/images/${id}`)
       .then((response) => {
-        console.log('images data by room id: ', response.data);
+        console.log('images data by room id: ', response.data); //getting 2 separate responses/sets of images data/objects, but redering the first
         const roomPhotos = response.data[0].room_photos.slice();
         // const title = response.data[0].title.slice();
         // const host = response.data[0].is_super_host.slice();

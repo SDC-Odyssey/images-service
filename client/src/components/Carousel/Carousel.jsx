@@ -5,7 +5,7 @@ import Slider from './Slider.jsx';
 class Carousel extends React.Component {
   constructor(props) {
     super(props);
-    console.log('props in carousel: ', props); //photos array, clickedPic, handleClick
+    //console.log('props in carousel: ', props); //photos array, clickedPic, handleClick
     this.state = {
       photos: this.props.photos,
       clickedPic: this.props.clickedPic,
