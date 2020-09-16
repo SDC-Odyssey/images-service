@@ -79,9 +79,9 @@ async function generatePhotos() {
 };
 
 
-generatePhotos()
-  .then((results) => {
-    console.log('generatePhotos results[0]: ', results[0]);
-  })
+// generatePhotos()
+//   .then((results) => {
+//     console.log('generatePhotos results[0]: ', results[0]);
+//   })
 
 exports.generatePhotos = generatePhotos;
