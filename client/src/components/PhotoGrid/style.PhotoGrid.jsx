@@ -48,7 +48,6 @@ export const GridPhoto2 = styled.div`
   grid-row-end: 2;
   border: solid 4.5px #ffffff;
   overflow: hidden;
-  border-radius: 16px;
   ${Grid}:hover &:hover {
     opacity: 1;
   }
@@ -61,7 +60,6 @@ export const GridPhoto3 = styled.div`
   grid-row-end: 3;
   border: solid 4.5px #ffffff;
   overflow: hidden;
-  border-radius: 16px;
   ${Grid}:hover &:hover {
     opacity: 1;
   }
@@ -74,7 +72,6 @@ export const GridPhoto4 = styled.div`
   grid-row-end: 2;
   border: solid 4.5px #ffffff;
   overflow: hidden;
-  border-radius: 16px;
   ${Grid}:hover &:hover {
     opacity: 1;
   }
@@ -87,7 +84,6 @@ export const GridPhoto5 = styled.div`
   grid-row-end: 3;
   border: solid 4.5px #ffffff;
   overflow: hidden;
-  border-radius: 16px;
   ${Grid}:hover &:hover {
     opacity: 1;
   }
