@@ -8,19 +8,17 @@ class Carousel extends React.Component {
     //console.log('props in carousel: ', props); //photos array, clickedPic, handleClick
     this.state = {
       photos: this.props.photos,
-      clickedPic: this.props.clickedPic,
+      currentPhoto: this.props.clickedPic,
       transform: 0
     };
     this.rightArrowClick = this.rightArrowClick.bind(this);
     this.leftArrowClick = this.leftArrowClick.bind(this);
-    // console.log('🧬 this.state.clickedPic: ', this.state.clickedPic); //not string
   }
 
   rightArrowClick(e) {
     e.preventDefault();
-    const { photos, clickedPic, transform } = this.state;
-    //below
-    const nextImagePosition = photos.indexOf({ clickedPic }.clickedPic) + 1;
+    const { photos, currentPhoto, transform } = this.state;
+    const nextImagePosition = photos.indexOf({ currentPhoto }.currentPhoto) + 1;
     const nextImage = photos[nextImagePosition];
     let transformed;
     //console.log('next: ', nextImage);
@@ -28,13 +26,13 @@ class Carousel extends React.Component {
       transformed = transform - 110;
       //console.log('🇲🇳 1 transformed in Carousel: ', transformed);
       this.setState({
-        clickedPic: nextImage,
+        currentPhoto: nextImage,
         transform: transformed
       });
     } else {
       transformed = 280;
       this.setState({
-        clickedPic: photos[0],
+        currentPhoto: photos[0],
         transform: transformed
       });
     }
@@ -42,22 +40,22 @@ class Carousel extends React.Component {
 
   leftArrowClick(e) {
     e.preventDefault();
-    const { photos, clickedPic, transform } = this.state;
-    const previousImagePosition = { photos }.photos.indexOf({ clickedPic }.clickedPic) - 1;
+    const { photos, currentPhoto, transform } = this.state;
+    const previousImagePosition = { photos }.photos.indexOf({ currentPhoto }.currentPhoto) - 1;
     const previousImage = { photos }.photos[previousImagePosition];
     const imagesListLength = { photos }.photos.length;
     let transformed;
     if (previousImage !== undefined) {
       transformed = transform + 110;
       this.setState({
-        clickedPic: previousImage,
+        currentPhoto: previousImage,
         transform: transformed
       });
     } else {
       transformed = (photos.length * -110) + 380;
       //console.log('🇲🇳 4 transformed in Carousel: ', transformed);
       this.setState({
-        clickedPic: { photos }.photos[imagesListLength - 1],
+        currentPhoto: { photos }.photos[imagesListLength - 1],
         transform: transformed,
       });
     }
@@ -90,10 +88,10 @@ class Carousel extends React.Component {
               </RightArrowButton>
             </ArrowAndImageContainer>
             <CurrentPhotoFrame>
-              <CurrentPhoto src={this.state.clickedPic} />
+              <CurrentPhoto src={this.state.currentPhoto} />
             </CurrentPhotoFrame>
           </TableRow>
-          <Slider photos={this.state.photos} clickedPic={this.state.clickedPic} transform={this.state.transform} />
+          <Slider photos={this.state.photos} currentPhoto={this.state.currentPhoto} transform={this.state.transform} />
         </Frame>
       </Container>
     );

@@ -6,7 +6,7 @@ const faker = require('faker');
 async function allUrls() {
   let allPhotos = {};
 
-  let roomQueries = ['cottage,interior', 'contemporary,cabin,room', 'living', 'cozy', 'room', 'modern,warm,interior', 'interior', 'contemporary,living,home', 'home', 'modern,rustic,home', 'cozy,interior', 'cabin,interior', 'cozy,cabin,room', 'modern,home,interior'];
+  let roomQueries = ['cottage,interior', 'contemporary,cabin,room', 'living', 'cozy', 'room', 'modern,warm,interior', 'interior', 'contemporary,living,home', 'home', 'modern,rustic,home', 'cozy,interior', 'cabin,interior', 'cozy,cabin,room', 'modern,home,interior', 'hygge', 'glamping'];
   const getRandomRoomPic = () => {
     var index = Math.floor(Math.random() * roomQueries.length);
     return roomQueries[index];
@@ -60,7 +60,7 @@ async function generatePhotos() {
     photos.title = faker.lorem.sentence();
     photos.rating = faker.random.number({'min': 1, 'max': 5});
     photos.review_count = faker.random.number({'min': 1, 'max': 10});
-    photos.isSuperHost = faker.random.arrayElement([true, false]);
+    photos.is_super_host = faker.random.arrayElement([true, false]);
     for (const key in allPhotos) {
       if (key === 'roomPhotos') {
         photos.room_photos = allPhotos[key];

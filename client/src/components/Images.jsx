@@ -34,10 +34,10 @@ class Images extends React.Component {
       .then((response) => {
         console.log('images data by room id: ', response.data); //getting 2 separate responses/sets of images data/objects, but redering the first
         const roomPhotos = response.data[0].room_photos.slice();
-        // const title = response.data[0].title.slice();
-        // const host = response.data[0].is_super_host.slice();
+        const title = response.data[0].title.slice();
+        //const host = response.data[0].is_super_host.slice(); //undefined
         this.setState({
-          //title: title,
+          title: title,
           photos: roomPhotos,
           //isSuperHost: host,
           hasLoaded: true
@@ -50,21 +50,21 @@ class Images extends React.Component {
 
   handleClick(e) {
     e.preventDefault();
-    //console.log('💈e.target.src: ', e.target.src);
     this.setState({
       gridClicked: !this.state.gridClicked,
       clickedPic: e.target.src
     });
-    //console.log('🇬🇧this.state.clickedPic in handleClick Images.jsx: ', this.state.clickedPic); null
   }
 
   render() {
     if (this.state.hasLoaded) {
       if (!this.state.gridClicked) {
         return (
-          <div className="photo-gallery">
-            <h3>Contemporary Cozy Home</h3>
+          <div>
+            <h3 className="property-title">{this.state.title}</h3>
+            <div className="photo-gallery">
               <PhotoGrid photos={ this.state.photos } onClick={this.handleClick} />
+            </div>
           </div>
         );
       } else {
@@ -76,7 +76,10 @@ class Images extends React.Component {
       }
     }
     return (
-      <h3>Unique Glamping Experience</h3>
+      <div>
+        <h3>Unique Glamping Experience</h3>
+          <img src="https://unsplash.com/photos/SN5tt-oozVI"/>
+      </div>
     );
   }
 }

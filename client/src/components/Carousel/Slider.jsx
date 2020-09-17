@@ -42,7 +42,7 @@ const PhotoList = styled.ul`
   left: 0px !important;
   margin: 0px !important;
   padding: 0px !important;
-  transition: -ms-transform 0.3s ease-out 0s, -webkit-transform 0.3s ease-out 0s, transform 0.3s ease-out 0s !important;
+  transition: -ms-transform 0.3s ease-out 0s, -webkit-transform 0.3s ease-out 0s;
 `;
 
 const ShiftedSlider = styled(PhotoList)`
@@ -50,14 +50,14 @@ const ShiftedSlider = styled(PhotoList)`
 `;
 
 class Slider extends React.Component {
-  //console.log('props in Slider: ', props); //photos, clickedPic, transform
+  //console.log('props in Slider: ', props); //photos, currentPhoto, transform
   render() {
     const photoList = this.props.photos;
-    const currentPhoto = this.props.clickedPic;
+    const currentPhoto = this.props.currentPhoto;
     const transform = this.props.transform;
     const currentPhotoIndex = photoList.indexOf(currentPhoto);
     //console.log('🧪 currentPhotoIndex: ', currentPhotoIndex);
-    //if photoList.length is greater than 3, will need extra photos coming into view
+    //if currentPhotoIndex is greater than 3, will need extra photos coming into view
     if (currentPhotoIndex > 3) {
       return (
         <Container>
