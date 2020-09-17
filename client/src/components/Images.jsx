@@ -1,7 +1,10 @@
 import React from 'react';
 import axios from 'axios';
 import PhotoGrid from './PhotoGrid/PhotoGrid.jsx';
-//import PhotoCarousel from './PhotoCarousel.jsx';
+import Carousel from './Carousel/Carousel.jsx';
+
+//let serverUrl = 'http://ec2-3-137-156-133.us-east-2.compute.amazonaws.com';
+let serverUrl = 'http://localhost:3001';
 
 class Images extends React.Component {
   constructor(props) {
@@ -12,7 +15,7 @@ class Images extends React.Component {
       isSuperHost: false,
       hasLoaded: false,
       gridClicked: false,
-      clickedPhoto: null
+      clickedPic: null
     }
     this.getPhotosByRoomId = this.getPhotosByRoomId.bind(this);
     this.handleClick = this.handleClick.bind(this);
@@ -27,14 +30,14 @@ class Images extends React.Component {
 
   getPhotosByRoomId(id) {
     //console.log('id: ', id);
-    axios.get(`http://localhost:3001/images/${id}`)
+    axios.get(`${serverUrl}/images/${id}`)
       .then((response) => {
-        console.log('images data by room id: ', response.data);
+        console.log('images data by room id: ', response.data); //getting 2 separate responses/sets of images data/objects, but redering the first
         const roomPhotos = response.data[0].room_photos.slice();
-        // const title = response.data[0].title.slice();
-        // const host = response.data[0].is_super_host.slice();
+        const title = response.data[0].title.slice();
+        //const host = response.data[0].is_super_host.slice(); //undefined
         this.setState({
-          //title: title,
+          title: title,
           photos: roomPhotos,
           //isSuperHost: host,
           hasLoaded: true
@@ -46,10 +49,10 @@ class Images extends React.Component {
   }
 
   handleClick(e) {
-    e.prevent.default();
+    e.preventDefault();
     this.setState({
       gridClicked: !this.state.gridClicked,
-      clickedPhoto: e.target
+      clickedPic: e.target.src
     });
   }
 
@@ -57,20 +60,26 @@ class Images extends React.Component {
     if (this.state.hasLoaded) {
       if (!this.state.gridClicked) {
         return (
-          <div className="photo-gallery">
-            <h3>Contemporary Cozy Home</h3>
+          <div>
+            <h3 className="property-title">{this.state.title}</h3>
+            <div className="photo-gallery">
               <PhotoGrid photos={ this.state.photos } onClick={this.handleClick} />
+            </div>
+          </div>
+        );
+      } else {
+        return (
+          <div className="photo-carousel">
+            <Carousel photos={ this.state.photos } clickedPic={ this.state.clickedPic } handleClick={this.handleClick} />
           </div>
         );
       }
-      // return (
-      //   <div className="photo-carousel">
-      //     <PhotoCarousel photos={ this.state.photos } clickedPhoto={ this.state.clickedPhoto } handleClick={ this.handleClick } />
-      //   </div>
-      // );
     }
     return (
-      <h3>Unique Glamping Experience</h3>
+      <div>
+        <h3>Unique Glamping Experience</h3>
+          <img src="https://unsplash.com/photos/SN5tt-oozVI"/>
+      </div>
     );
   }
 }

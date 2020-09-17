@@ -5,7 +5,7 @@ const faker = require('faker');
 const dotenv = require('dotenv');
 dotenv.config({ path: path.resolve(__dirname, './.env') });
 
-
+//save url in variable to make it more simple as it's repeated below
 let getUnsplashRooms = (query, max) => {
   let options = {
     method: 'GET',

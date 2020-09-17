@@ -6,45 +6,44 @@ const faker = require('faker');
 async function allUrls() {
   let allPhotos = {};
 
-  let roomQueries = ['living', 'indoors', 'room', 'interior', 'home'];
+  let roomQueries = ['cottage,interior', 'contemporary,cabin,room', 'living', 'cozy', 'room', 'modern,warm,interior', 'interior', 'contemporary,living,home', 'home', 'modern,rustic,home', 'cozy,interior', 'cabin,interior', 'cozy,cabin,room', 'modern,home,interior', 'hygge', 'glamping'];
   const getRandomRoomPic = () => {
     var index = Math.floor(Math.random() * roomQueries.length);
     return roomQueries[index];
   };
   let randomRoomQuery = getRandomRoomPic();
-  let max = faker.random.number({'min': 3, 'max': 12});
-  let roomUrls = [];
-  let rooms = await getUnsplashRooms(randomRoomQuery, max);
-  //can write synchronously here, because the timing is handled under hood???
-  for (let i = 0; i < rooms.length; i++) { //getting into loop before fulfilled
-    roomUrls.push(rooms[i].urls.raw + "&w=1057");
+  let max = faker.random.number({'min': 5, 'max': 12});
+  const roomUrls = [];
+  const rooms = await getUnsplashRooms(randomRoomQuery, max);
+  for (const element in rooms) {
+    roomUrls.push(rooms[element].urls.raw + "&w=1057");
   }
   allPhotos.roomPhotos = roomUrls;
 
-  let hostQueries = ['woman', 'man', 'person', 'happy', 'portrait', 'cheerful', 'hipster', 'human', 'alone', 'couple', 'family', 'people'];
+  let hostQueries = ['woman', 'man', 'person', 'happy', 'portrait', 'cheerful', 'hipster', 'human', 'couple', 'family'];
   const getRandomHostPic = () => {
     var index = Math.floor(Math.random() * hostQueries.length);
     return hostQueries[index];
   };
   let randomHostQuery = getRandomHostPic();
-  let hostUrls = [];
-  let hosts = await getUnsplashHosts(randomHostQuery)
-  for (let i = 0; i < hosts.length; i++) {
-    hostUrls.push(hosts[i].urls.raw + "&w=204");
+  const hostUrls = [];
+  const hosts = await getUnsplashHosts(randomHostQuery);
+  for (const element in hosts) {
+    hostUrls.push(hosts[element].urls.raw + "&w=204");
   }
   allPhotos.hostPhotos = hostUrls;
 
-  let reviewerQueries = ['excited', 'person', 'happy', 'portrait', 'cheerful', 'hipster', 'couple', 'people', 'human', 'glad'];
+  let reviewerQueries = ['excited', 'hippy', 'gleeful', 'playful', 'dancer', 'friends', 'glad'];
   const getRandomReviewerPic = () => {
     var index = Math.floor(Math.random() * reviewerQueries.length);
     return reviewerQueries[index];
   };
   let randomReviewerQuery = getRandomReviewerPic();
   max = faker.random.number({'min': 3, 'max': 16});
-  let reviewerUrls = [];
-  let reviewers = await getUnsplashReviewers(randomReviewerQuery, max)
-  for (let i = 0; i < reviewers.length; i++) { //getting into loop before fulfilled
-    reviewerUrls.push(reviewers[i].urls.raw + "&w=204");
+  const reviewerUrls = [];
+  const reviewers = await getUnsplashReviewers(randomReviewerQuery, max);
+  for (const element in reviewers) {
+    reviewerUrls.push(reviewers[element].urls.raw + "&w=204");
   }
   allPhotos.reviewerPhotos = reviewerUrls;
   return allPhotos;
@@ -53,35 +52,36 @@ async function allUrls() {
 //generate array of 100 objects for seedingData
 async function generatePhotos() {
   const results = [];
-  const range = [];
-  for (let i = 1; i < 101; i++) {
-    range.push(i);
+  let i = 1;
+  while (results.length < 100) {
+    const allPhotos = await allUrls();
+    let photos = {};
+    photos.room_id = i;
+    photos.title = faker.lorem.sentence();
+    photos.rating = faker.random.number({'min': 1, 'max': 5});
+    photos.review_count = faker.random.number({'min': 1, 'max': 10});
+    photos.is_super_host = faker.random.arrayElement([true, false]);
+    for (const key in allPhotos) {
+      if (key === 'roomPhotos') {
+        photos.room_photos = allPhotos[key];
+      }
+      if (key === 'hostPhotos') {
+        photos.host_image = allPhotos[key];
+      }
+      if (key === 'reviewerPhotos') {
+        photos.reviewers = allPhotos[key];
+      }
+    }
+    results.push(photos);
+    i++;
   }
-  for (const j of range) { //not fulfilling all of loop- sporadic
-    await allUrls()
-    //only working w/ .then after await, not working without like above
-      .then((value) => {
-        let photos = {};
-        photos.room_id = j;
-        photos.title = faker.lorem.sentence({'wordCount': 3});
-        photos.room_photos = value.roomPhotos;
-        photos.host_image = value.hostPhotos;
-        photos.reviewers = value.reviewerPhotos;
-        photos.rating = faker.random.number({'min': 1, 'max': 5});
-        photos.review_count = faker.random.number({'min': 1, 'max': 10});
-        photos.isSuperHost = faker.random.arrayElement([true, false]);
-        results.push(photos);
-      })
-      .catch((err) => console.log('error getting allUrls: ', err));
-  }
-  //console.log('results.length: ', results.length);
   return results;
 };
 
 
-generatePhotos()
-  .then((results) => {
-    console.log('generatePhotos results: ', results);
-  })
+// generatePhotos()
+//   .then((results) => {
+//     console.log('generatePhotos results[0]: ', results[0]);
+//   })
 
 exports.generatePhotos = generatePhotos;
