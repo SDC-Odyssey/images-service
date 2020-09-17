@@ -52,7 +52,7 @@ export const TableRow = styled.div`
   display: table-row !important;
 `;
 
-export const ArrowAndImageContainer = styled.div`
+export const ArrowContainer = styled.div`
   display: table-row !important;
   height: 100% !important;
 `;
