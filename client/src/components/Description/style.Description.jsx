@@ -9,7 +9,6 @@ export const Container = styled.div`
   justify-content: space-between;
   box-sizing: border-box;
   -webkit-box-align: baseline !important;
-  align-items: baseline !important;
   display: flex !important;
   flex-wrap: wrap !important;
   margin-top: 4px !important;
@@ -44,19 +43,19 @@ export const LeftContainer = styled.span`
   justify-content: space-between;
 `;
 
+export const DescriptionListItem = styled.li`
+  margin-top: 4px;
+  padding-bottom: 12px;
+  align-items: center;
+`;
+
 export const ReviewsContainer = styled.span`
-  -webkit-box-align: center !important;
+  -webkit-box-align: baseline !important;
   display: inline-flex !important;
   min-width: 0px !important;
   box-sizing: border-box;
   justify-content: space-between;
   margin: 0 9px 0 0;
-`;
-
-export const DescriptionListItem = styled.li`
-  margin-top: 4px;
-  padding-bottom: 12px;
-  align-items: center;
 `;
 
 export const StarSvg = styled.svg`
@@ -126,7 +125,6 @@ export const ShareContainer = styled.span`
   justify-content: space-between;
 `;
 
-//stroke: currentcolor;
 export const ShareSvg = styled.svg`
   color: #484848 !important;
   display: block;
@@ -136,11 +134,13 @@ export const ShareSvg = styled.svg`
   stroke: #484848;
   stroke-width: 2;
   overflow: visible;
+  margin: 0 5px 0 0;
 `;
 
 export const ShareText = styled.p`
   text-decoration: underline;
   color: #484848 !important;
+  margin: 0 18px 0 0;
 `;
 
 export const SaveContainer = styled.span`
@@ -151,7 +151,6 @@ export const SaveContainer = styled.span`
   justify-content: space-between;
 `;
 
-//style="stroke: currentcolor;"
 export const HeartSvg = styled.svg`
   display: block;
   fill: none;
@@ -160,6 +159,7 @@ export const HeartSvg = styled.svg`
   stroke: #484848 !important;
   stroke-width: 2;
   overflow: visible;
+  margin: 0 5px 0 0;
 `;
 
 export const SaveText = styled.p`

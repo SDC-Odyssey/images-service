@@ -35,7 +35,7 @@ class Images extends React.Component {
     //console.log('id: ', id);
     axios.get(`${serverUrl}/images/${id}`)
       .then((response) => {
-        console.log('images data by room id: ', response.data); //getting 2 separate responses/sets of images data/objects, but redering the first
+        console.log('images data by room id: ', response.data);
         const roomPhotos = response.data[0].room_photos.slice();
         const title = response.data[0].title.slice();
         const host = response.data[0].is_super_host;
@@ -63,12 +63,16 @@ class Images extends React.Component {
     });
   }
 
-  //for Description: isSuperHost, rating, reviewCount
+  //style={mainDivStyle}
+
   render() {
+    const mainDivStyle = {
+      padding: '0 34px 0 0',
+    };
     if (this.state.hasLoaded) {
       if (!this.state.gridClicked) {
         return (
-          <div>
+          <div style={mainDivStyle}>
             <h3 className="property-title">{ this.state.title }</h3>
             <div className="description">
               <Description isSuperHost={ this.state.isSuperHost } rating={ this.state.rating } reviewCount={ this.state.reviewCount } />
