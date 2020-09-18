@@ -73,8 +73,6 @@ class Carousel extends React.Component {
         </CloseButton>
         <Frame>
           <TableRow>
-          </TableRow>
-          <TableRow>
             <ArrowContainer>
               <LeftArrowButton aria-label="Previous">
                 <PreviousSvg viewBox="0 0 18 18" role="presentation" aria-hidden="true" focusable="false" onClick={this.leftArrowClick}>
