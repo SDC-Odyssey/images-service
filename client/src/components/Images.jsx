@@ -63,11 +63,10 @@ class Images extends React.Component {
     });
   }
 
-  //style={mainDivStyle}
-
   render() {
     const mainDivStyle = {
-      padding: '0 34px 0 0',
+      padding: '24px 0 0 0',
+      textAlign: 'left',
     };
     if (this.state.hasLoaded) {
       if (!this.state.gridClicked) {

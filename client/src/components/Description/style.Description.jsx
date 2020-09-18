@@ -11,7 +11,6 @@ export const Container = styled.div`
   -webkit-box-align: baseline !important;
   display: flex !important;
   flex-wrap: wrap !important;
-  margin-top: 4px !important;
   line-height: 20px !important;
   letter-spacing: 0.3px;
   -webkit-font-smoothing: antialiased;
