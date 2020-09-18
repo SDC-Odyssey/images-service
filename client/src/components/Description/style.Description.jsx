@@ -20,21 +20,28 @@ export const Container = styled.div`
 
 export const OuterContainer = styled.div`
   width: 100%;
-  margin: 0 auto;
 `;
 
 export const DescriptionContainer = styled.div`
-  padding: 0 18px;
+  width: 100%;
+  margin: 0 auto;
 `;
 
 export const DescriptionList = styled.ul`
   display: flex;
   justify-content: space-between;
+  padding: 28px 0px 0px 0px;
   width: 100%;
-  padding: 0 18px;
   list-style-type: none;
   margin-bottom: 0;
   box-sizing: border-box;
+`;
+
+export const LeftContainer = styled.span`
+  -webkit-box-align: center !important;
+  display: inline-flex !important;
+  box-sizing: border-box;
+  justify-content: space-between;
 `;
 
 export const ReviewsContainer = styled.span`
@@ -42,6 +49,8 @@ export const ReviewsContainer = styled.span`
   display: inline-flex !important;
   min-width: 0px !important;
   box-sizing: border-box;
+  justify-content: space-between;
+  margin: 0 9px 0 0;
 `;
 
 export const DescriptionListItem = styled.li`
@@ -53,17 +62,30 @@ export const DescriptionListItem = styled.li`
 export const StarSvg = styled.svg`
   height: 1.43em;
   width: 1.43em;
+  padding: 0px 4px .25px 0px;
   fill: rgb(255, 90, 95);
 `;
 
 export const Rating = styled.p`
   color: #333333 !important;
-  font-weight: semi-bold;
+  font-weight: bold;
+  font-size: 14px !important;
+  padding: 0px 4px 0px 0px;
 `;
 
 export const ReviewCount = styled.p`
-  color: #dedede !important;
+  color: #737373 !important;
   font-weight: extra-light;
+  font-size: 14px !important;
+`;
+
+export const SuperhostContainer = styled.span`
+  -webkit-box-align: center !important;
+  display: inline-flex !important;
+  min-width: 0px !important;
+  box-sizing: border-box;
+  justify-content: space-between;
+  margin: 0 9px 0 0;
 `;
 
 //style="fill: currentcolor;"
@@ -72,19 +94,36 @@ export const SuperHostSvg = styled.svg`
   height: 1em;
   width: 1em;
   fill: rgb(255, 90, 95);
+  margin: 0 .5px 0 0;
 `;
 
 export const SuperHostText = styled.p`
-  color: #dedede !important;
+  color: #737373 !important;
   font-weight: extra-light;
 `;
 
 export const Location = styled.p`
   text-decoration: underline;
-  color: #717171 !important;
+  color: #737373 !important;
   font-size: 14px !important;
-  font-weight: regular;
+  font-weight: bold;
   line-height: 20px;
+`;
+
+export const RightContainer = styled.span`
+  -webkit-box-align: center !important;
+  display: inline-flex !important;
+  min-width: 0px !important;
+  box-sizing: border-box;
+  justify-content: space-between;
+`;
+
+export const ShareContainer = styled.span`
+  -webkit-box-align: center !important;
+  display: inline-flex !important;
+  min-width: 0px !important;
+  box-sizing: border-box;
+  justify-content: space-between;
 `;
 
 //stroke: currentcolor;
@@ -104,6 +143,14 @@ export const ShareText = styled.p`
   color: #484848 !important;
 `;
 
+export const SaveContainer = styled.span`
+  -webkit-box-align: center !important;
+  display: inline-flex !important;
+  min-width: 0px !important;
+  box-sizing: border-box;
+  justify-content: space-between;
+`;
+
 //style="stroke: currentcolor;"
 export const HeartSvg = styled.svg`
   display: block;
@@ -118,6 +165,13 @@ export const HeartSvg = styled.svg`
 export const SaveText = styled.p`
   text-decoration: underline;
   color: #484848 !important;
+`;
+
+export const Dot = styled.p`
+  color: #717171 !important;
+  font-size: 10px !important;
+  font-weight: extra-light;
+  margin: 0 9px 0 0;
 `;
 
 // margin: 1em;
