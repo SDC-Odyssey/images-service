@@ -4,8 +4,8 @@ import PhotoGrid from './PhotoGrid/PhotoGrid.jsx';
 import Carousel from './Carousel/Carousel.jsx';
 import Description from './Description/Description.jsx';
 
-//let serverUrl = 'http://ec2-3-137-156-133.us-east-2.compute.amazonaws.com';
-let serverUrl = 'http://localhost:3001';
+//let serverUrl = 'http://ec2-3-21-170-25.us-east-2.compute.amazonaws.com';
+//let serverUrl = 'http://localhost:3001';
 
 class Images extends React.Component {
   constructor(props) {
@@ -33,11 +33,11 @@ class Images extends React.Component {
 
   getPhotosByRoomId(id) {
     //console.log('id: ', id);
-    axios.get(`${serverUrl}/images/${id}`)
+    axios.get(`/images/${id}`)
       .then((response) => {
         console.log('images data by room id: ', response.data);
         const roomPhotos = response.data[0].room_photos.slice();
-        const title = response.data[0].title.slice();
+        const title = response.data[0].title;
         const host = response.data[0].is_super_host;
         const rating = response.data[0].rating;
         const reviewCount = response.data[0].review_count;
@@ -92,7 +92,6 @@ class Images extends React.Component {
     return (
       <div>
         <h3>Unique Glamping Experience</h3>
-          <img src="https://unsplash.com/photos/SN5tt-oozVI"/>
       </div>
     );
   }

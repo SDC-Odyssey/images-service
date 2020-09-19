@@ -1,6 +1,6 @@
 const express = require('express');
-const bodyParser = require('body-parser');
 const cors = require('cors');
+const bodyParser = require('body-parser');
 const multer = require('multer');
 const path = require('path');
 //const cloudinary = require('cloudinary').v2;
@@ -15,8 +15,8 @@ const fileUpload = multer();
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
-app.use(express.static(__dirname + '/../client/dist'));
 app.use(cors());
+app.use(express.static(__dirname + '/../client/dist'));
 
 
 app.get('/images', (req, res) => {
