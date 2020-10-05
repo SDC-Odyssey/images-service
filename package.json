@@ -10,16 +10,7 @@
     "build": "webpack -d --watch",
     "seed": "node database/seed.js"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/FEC-Gai/images-service.git"
-  },
   "author": "Amanda",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/FEC-Gai/images-service/issues"
-  },
-  "homepage": "https://github.com/FEC-Gai/images-service#readme",
   "devDependencies": {
     "@babel/core": "^7.11.1",
     "@babel/node": "^7.10.5",

@@ -4,8 +4,8 @@ import PhotoGrid from './PhotoGrid/PhotoGrid.jsx';
 import Carousel from './Carousel/Carousel.jsx';
 import Description from './Description/Description.jsx';
 
-let serverUrl = 'http://ec2-3-21-170-25.us-east-2.compute.amazonaws.com:3001';
-//let serverUrl = 'http://localhost:3001';
+// let serverUrl = 'http://ec2-3-21-170-25.us-east-2.compute.amazonaws.com:3001';
+let serverUrl = 'http://localhost:3001';
 
 class Images extends React.Component {
   constructor(props) {
@@ -19,7 +19,7 @@ class Images extends React.Component {
       hasLoaded: false,
       gridClicked: false,
       clickedPic: null
-    }
+    };
     this.getPhotosByRoomId = this.getPhotosByRoomId.bind(this);
     this.handleClick = this.handleClick.bind(this);
   }
@@ -31,29 +31,25 @@ class Images extends React.Component {
     this.getPhotosByRoomId(roomId);
   }
 
-  //${serverUrl}
   getPhotosByRoomId(id) {
     //console.log('id: ', id);
     axios.get(`${serverUrl}/images/${id}`)
       .then((response) => {
         console.log('images data by room id: ', response.data);
-        const roomPhotos = response.data[0].room_photos;
-        const title = response.data[0].title;
-        const host = response.data[0].is_super_host;
-        const rating = response.data[0].rating;
-        const reviewCount = response.data[0].review_count;
+        const {roomPhotos, title, isSuperHost, rating, reviewCount} = response.data[0];
+
         this.setState({
           title: title,
           photos: roomPhotos,
           rating: rating,
           reviewCount: reviewCount,
-          isSuperHost: host,
+          isSuperHost: isSuperHost,
           hasLoaded: true
         });
       })
       .catch((err) => {
         console.log('error getting photos by id from server: ', err);
-      })
+      });
   }
 
   handleClick(e) {

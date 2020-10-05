@@ -24,42 +24,42 @@ let getUnsplashRooms = (query, max) => {
     });
 };
 
-let getUnsplashHosts = (query) => {
-  let options = {
-    method: 'GET',
-    url: `https://api.unsplash.com/search/photos/?query=${query}&page=1&per_page=1&orientation=landscape&client_id=${process.env.UNSPLASH_API_KEY}`
-  };
+// let getUnsplashHosts = (query) => {
+//   let options = {
+//     method: 'GET',
+//     url: `https://api.unsplash.com/search/photos/?query=${query}&page=1&per_page=1&orientation=landscape&client_id=${process.env.UNSPLASH_API_KEY}`
+//   };
 
-  return axios(options)
-    .then((response) => {
-      //response.data shows total # of results & total pages
-      //response.data.results is an array of image objects
-      //console.log('🔶response.data.results length', response.data.results.length);
-      return response.data.results;
-    })
-    .catch((err) => {
-      console.log('error getting host images from Unsplash: ', err);
-    });
-};
+//   return axios(options)
+//     .then((response) => {
+//       //response.data shows total # of results & total pages
+//       //response.data.results is an array of image objects
+//       //console.log('🔶response.data.results length', response.data.results.length);
+//       return response.data.results;
+//     })
+//     .catch((err) => {
+//       console.log('error getting host images from Unsplash: ', err);
+//     });
+// };
 
-let getUnsplashReviewers = (query, max) => {
-  let options = {
-    method: 'GET',
-    url: `https://api.unsplash.com/search/photos/?query=${query}&page=1&per_page=${max}&orientation=landscape&client_id=${process.env.UNSPLASH_API_KEY}`
-  };
+// let getUnsplashReviewers = (query, max) => {
+//   let options = {
+//     method: 'GET',
+//     url: `https://api.unsplash.com/search/photos/?query=${query}&page=1&per_page=${max}&orientation=landscape&client_id=${process.env.UNSPLASH_API_KEY}`
+//   };
 
-  return axios(options)
-    .then((response) => {
-      //response.data shows total # of results & total pages
-      //response.data.results is an array of image objects
-      //console.log('🔶response.data.results length', response.data.results.length);
-      return response.data.results;
-    })
-    .catch((err) => {
-      console.log('error getting reviewer images from Unsplash: ', err);
-    });
-};
+//   return axios(options)
+//     .then((response) => {
+//       //response.data shows total # of results & total pages
+//       //response.data.results is an array of image objects
+//       //console.log('🔶response.data.results length', response.data.results.length);
+//       return response.data.results;
+//     })
+//     .catch((err) => {
+//       console.log('error getting reviewer images from Unsplash: ', err);
+//     });
+// };
 
 exports.getUnsplashRooms = getUnsplashRooms;
-exports.getUnsplashHosts = getUnsplashHosts;
-exports.getUnsplashReviewers = getUnsplashReviewers;
+// exports.getUnsplashHosts = getUnsplashHosts;
+// exports.getUnsplashReviewers = getUnsplashReviewers;

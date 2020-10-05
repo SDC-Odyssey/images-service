@@ -2,14 +2,14 @@ const mongoose = require('mongoose');
 const db = require('./index.js');
 
 const imagesSchema = new mongoose.Schema({
-  room_id: Number,
+  roomId: Number,
   title: String,
-  room_photos: Array,
-  host_image: Array,
-  reviewers: Array,
+  roomPhotos: Array,
+  // hostImage: Array,
+  // reviewers: Array,
   rating: Number,
-  review_count: Number,
-  is_super_host: Boolean
+  reviewCount: Number,
+  isSuperHost: Boolean
 });
 
 const Images = mongoose.model('Images', imagesSchema);
