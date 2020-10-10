@@ -8,7 +8,6 @@ const Images = require('../database/Images.js');
 
 const port = 3001;
 const app = express();
-// const fileUpload = multer();
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
@@ -16,17 +15,17 @@ app.use(cors());
 app.use(express.static(__dirname + '/../client/dist'));
 
 
-app.get('/images', (req, res) => {
-  Images.find({})
-    .then((data) => {
-      res.send(data);
-      console.log('success getting data from images db');
-    })
-    .catch((err) => {
-      res.status(500);
-      console.log('error getting data from images db: ', err);
-    });
-});
+// app.get('/images', (req, res) => {
+//   Images.find({})
+//     .then((data) => {
+//       res.send(data);
+//       console.log('success getting data from images db');
+//     })
+//     .catch((err) => {
+//       res.status(500);
+//       console.log('error getting data from images db: ', err);
+//     });
+// });
 
 app.get('/:id', (req, res) => {
   res.sendFile(path.join(__dirname + './../client/dist/index.html'));
@@ -49,22 +48,6 @@ app.get('/images/:roomId', (req, res) => {
 
 app.put('/images/:roomId', (req, res) => {
   let id = Number(req.params.roomId);
-  /////
-  // let data = {};
-  // const {roomPhotos, title, rating, reviewerCount, isSuperHost} = req.body;
-  // data.roomPhotos = roomPhotos;
-  // data.title = title;      
-  // data.rating = rating;
-  // data.reviewerCount = reviewerCount;
-  // data.isSuperHost = isSuperHost;
-  // Images.updateOne({roomId: id}, data)
-  //   .then(dat => {
-  //     res.status(202).send(dat);
-  //   })
-  //   .catch(err => {
-  //     res.send(err);
-  //   });
-  /////
   Images.findOne({roomId: id}, (err, data) => {
     if (err) { 
       console.log(err); 

@@ -16,6 +16,7 @@
     "@babel/node": "^7.10.5",
     "@babel/preset-env": "^7.11.0",
     "@babel/preset-react": "^7.10.4",
+    "aws-sdk": "^2.769.0",
     "babel-loader": "^8.1.0",
     "babel-preset-es2015": "^6.24.1",
     "eslint": "^7.2.0",
