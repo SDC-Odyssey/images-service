@@ -7,3 +7,4 @@ upload
 config/cloudinary.js
 
 .env
+sandbox.js

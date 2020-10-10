@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const mongoUri = 'mongodb://ec2-3-21-170-25.us-east-2.compute.amazonaws.com/images'; //db -> images //change this to connect to ec2 instance w/mongodb installed on the instance //to identify if db is running correctly  //if not firewall problem blocking the connection to the db or db isn't setup correctly on ec2 instance
+const mongoUri = 'mongodb://localhost/images'; //db -> images //change this to connect to ec2 instance w/mongodb installed on the instance //to identify if db is running correctly  //if not firewall problem blocking the connection to the db or db isn't setup correctly on ec2 instance
 
 const db = mongoose.connect(mongoUri, {
   useNewUrlParser: true,
