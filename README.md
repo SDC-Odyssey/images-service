@@ -80,5 +80,5 @@ $ npm run build
 # DELETE /images/:2 
 
   Responce:
-    {statusCode: 202, message: 'Deleted record for roomId: 2!'}
+    {statusCode: 202, message: 'Deleted record for roomId: 2'}
 
