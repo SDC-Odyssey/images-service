@@ -82,3 +82,15 @@ $ npm run build
   Responce:
     {statusCode: 202, message: 'Deleted record for roomId: 2'}
 
+## ########################## POSTGRES DB SETUP
+
+## npm install
+
+## 1. from terminal run : < psql postgres > to enter pg commandline
+## 2. create database: CREATE DATABASE oddesey;
+## 3. npm run schema
+## 4. npm run createData  --> 2m53.128s 50-70 million records(subject to change since there is randpm number of pic urls generated)
+## 4. to seed DB needs to run 2 scripts:
+        ##  npm run seedRoomInfoTable
+        ##  npm run seedPictureUrlsTable
+        

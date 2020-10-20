@@ -8,7 +8,10 @@
     "start": "nodemon server/index.js",
     "dev": "webpack-dev-server --open=3001",
     "build": "webpack -d --watch",
-    "seed": "node database/seed.js"
+    "seedRoomInfoTable": "time npx run-func database/seedPostgres seedroominfo",
+    "seedPictureUrlsTable": "time npx run-func database/seedPostgres seedPictureUrls",
+    "createData": "time node database/helpers/generateDataToCSV.js",
+    "schema":"node database/createSchemaAndTables.js"
   },
   "author": "Amanda",
   "devDependencies": {
