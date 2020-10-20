@@ -14,23 +14,6 @@ var config = {
   port: 5432,
 };
 
-// get all records from DB
-const getRecords = (roomIdRequest)=> {
-  const pool = new pg.Pool(config);
-  pool.connect()
-    .then(client => {
-      return client.query(`select * from ${schemaName}.roomInfo;`)
-        .then(res => {
-          client.release();
-          console.log('-----',res.rows);
-        })
-        .catch(error => {
-          client.release();
-          console.log(error);
-        });
-    }).finally(() => pool.end());
-};
-
 // Create the SCHEMA with user me if it doesn't exist
 const createSchemaAndTables = () => {
   const pool = new pg.Pool(config);
@@ -52,6 +35,10 @@ const createSchemaAndTables = () => {
         room_id INT,
         photo_url TEXT
       );`)
+      // CREATE INDEX info
+      // ON roomInfo (room_id);
+      // CREATE INDEX pic
+      //   ON roompictures (room_id);
         .then(() => {
           client.release();
           console.log('Schema created');
@@ -64,4 +51,3 @@ const createSchemaAndTables = () => {
 };
 
 createSchemaAndTables();
-// getRecords(1);
