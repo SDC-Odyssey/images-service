@@ -1,5 +1,3 @@
-const Promise = require('bluebird');
-const { getUnsplashRooms, getUnsplashHosts, getUnsplashReviewers } = require('./getUnsplash.js');
 const faker = require('faker');
 
 
@@ -14,21 +12,22 @@ const generateRandomS3urls = (callback) => {
 };
 
 //generate array of 100 objects for seedingData
-const generatePhotos = (num, callback) => {
+const generatePhotos = (i, callback) => {
   const results = [];
-  const limit = num * 1000; 
-  while (num < limit) {
+  let j = (i * 10000) + 1;
+  const temp = (i * 10000) + 10000;
+  while (j <= temp) {
     let record = {};
     generateRandomS3urls((recordphotos) => {
       record.roomPhotos = recordphotos;
-      record.roomId = num;
+      record.roomId = j;
       record.title = faker.lorem.sentence();
       record.rating = faker.random.number({'min': 1, 'max': 5});
       record.reviewCount = faker.random.number({'min': 1, 'max': 10});
       record.isSuperHost = faker.random.arrayElement([true, false]);
       results.push(record);
     });
-    num++;
+    j++;
   }
   callback(results);
 };

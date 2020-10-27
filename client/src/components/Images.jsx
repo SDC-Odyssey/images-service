@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 import React from 'react';
 import axios from 'axios';
 import PhotoGrid from './PhotoGrid/PhotoGrid.jsx';
@@ -28,22 +29,23 @@ class Images extends React.Component {
     let search = window.location.search;
     let roomId = Number(search.split('?').pop());
     console.log('roomId: ', roomId);
-    this.getPhotosByRoomId(roomId);
+    this.getPhotosByRoomId(roomId); 
+
   }
 
   getPhotosByRoomId(id) {
     //console.log('id: ', id);
     axios.get(`${serverUrl}/images/${id}`)
       .then((response) => {
-        console.log('images data by room id: ', response.data);
-        const {roomPhotos, title, isSuperHost, rating, reviewCount} = response.data[0];
+        console.log('images data by room id: ', response);
+        const {roomPhotos, title, is_super_host, rating, review_count} = response.data;
 
         this.setState({
           title: title,
           photos: roomPhotos,
           rating: rating,
-          reviewCount: reviewCount,
-          isSuperHost: isSuperHost,
+          reviewCount: review_count,
+          isSuperHost: is_super_host,
           hasLoaded: true
         });
       })

@@ -1,32 +1,19 @@
-const db = require('./index.js');
+/* eslint-disable func-style */
+const { db } = require('./Images.js');
 const Images = require('./Images');
 const { generatePhotos } = require('./helpers/generatePhotos');
-const { connection } = require('mongoose');
 
-//100 hosts/rooms worth of data
-const insertseedPhotos = function() {
-  let num = 1;
-  // while (num <= 10) {
-  generatePhotos(num, data => {
-    Images.remove({}, (err) => {
-      if (err) {
-        console.log(err);
-      } else {
-        Images.insertMany(data)
-          .then(() => {
-            console.log('successfully seeded db!');
-            // db.close(); 
-          })
-          .catch((err) => {
-            console.log('error seeding db: ', err);
-            // db.close(); 
-          });
-      }
-      // db.close();
-    }); 
-
-  });
-  //console.log('samplePics: ', samplePics);
-  // }
+const dropCollection = () => {
+  Images.deleteMany({});
 };
-insertseedPhotos();
+const insertseedPhotosDB = () => {
+  for (let j = 0; j < 200; j++) {
+    generatePhotos(j, (rec) => {
+      Images.insertMany(rec)
+        .then(() => console.log('success'))
+        .catch(err => console.log(err));
+    });
+  }
+};
+// dropCollection();
+insertseedPhotosDB();

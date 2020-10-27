@@ -3,7 +3,7 @@ import React from 'react';
 import { Grid, MainPhoto, Img, GridPhoto2, GridPhoto3, GridPhoto4, GridPhoto5 } from './style.PhotoGrid';
 
 const PhotoGrid = (props) => {
-  //console.log('props in PhotoGrid: ', props); //props.photos[url, url, url] //props.onClick
+  console.log('props in PhotoGrid: ', props); //props.photos[url, url, url] //props.onClick
   return (
     <Grid onClick={props.onClick}>
       <MainPhoto>
