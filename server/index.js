@@ -4,9 +4,11 @@ const cors = require('cors');
 const bodyParser = require('body-parser');
 const path = require('path');
 const pg = require('pg');
-const { compose } = require('underscore');
 const port = 3001;
 const app = express();
+
+
+require('newrelic');
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
@@ -29,126 +31,124 @@ const queryDB = (query)=> {
       .then(client => {
         return client.query(query)
           .then(res => {
-            client.release();
-            console.log('Success');
-
+            client.end();
+            // console.log('Success');
             resolve(res.rows);
-            // callback(null, res.rows);
           })
           .catch(error => {
-            client.release();
+            client.end();
             console.log(error);
             reject(error);
-            // callback(error, null);
           });
-      }).finally(() => pool.end());
+      })
+      .catch(err => console.log(err))
+      .finally(() => pool.end());
 
   });
 };
 
 app.get('/:id', (req, res) => {
+  // console.log('here');
   res.sendFile(path.join(__dirname + './../client/dist/index.html'));
 });
 
 app.get('/images/:roomId', (req, res) => {
-  console.log('typeof req.params.roomId: ', typeof req.params.roomId);
+  // console.log(count++);
   let id = Number(req.params.roomId);
-
-  console.log('typeof id: ', typeof id);
-  const sql = `select * from sdc.roomInfo where room_id = ${id}`;
+  // console.log('typeof id: ', typeof id);
+  const sql = `select s.title,s.rating, s.review_count, s.is_super_host, r.photo_url from sdc.roominfo s, sdc.roompictures r where s.room_id = r.room_id and s.room_id = ${id}`;
   queryDB(sql)
-    .then(roomInfo => {
-
-      queryDB(`select photo_url from sdc.roomPictures where room_id = ${id}`)
-        .then(pics => {
-          roomInfo[0].roomPhotos = [];
-          pics.forEach(picUrl => {
-            roomInfo[0].roomPhotos.push(picUrl.photo_url);
-          });
-          console.log('--------', roomInfo);
-          res.send(roomInfo[0]);
-        })
-        .catch(err => {
-          res.status(500);
-          console.log(err);
-        });
+    .then(record => {
+      // console.log(record);
+      if (record.length) {
+        let output = {};
+        output.title = record[0].title;
+        output.rating = record[0].rating;
+        output.review_count = record[0].review_count;
+        output.is_super_host = record[0].is_super_host;
+        output.roomPhotos = record.map(item => item.photo_url);
+        res.send(output);
+      } else {
+        res.status(404).send('Not found!');
+      }
     })
-    .catch(error => console.log(error));
+    .catch(error => {
+      res.status(500).send(error);
+      console.log(error);
+    });
 });
 
 app.put('/images/:roomId', (req, res) => {
-  let id = Number(req.params.roomId);
-  res.end();
-  // Images.findOne({roomId: id}, (err, data) => {
-  //   if (err) { 
-  //     console.log(err); 
-  //     res.status(500).send(err);
-  //   } else {
-  //     if (!data) {
-  //       res.status(404).send('No record found to update!');
-  //     } else {
-  //       const {roomPhotos, title, rating, reviewerCount, isSuperHost} = req.body;
-  //       data.roomPhotos = roomPhotos;
-  //       data.title = title;      
-  //       data.rating = rating;
-  //       data.reviewerCount = reviewerCount;
-  //       data.isSuperHost = isSuperHost;
-  //       data.save();
-  //       res.status(202).send('Success!');
-  //     }
-  //   }
-  // });
+  const id = Number(req.params.roomId);
+  const deleteSQL = `delete from sdc.roominfo where room_id = ${id};
+              delete from sdc.roompictures  where room_id = ${id};`;
+
+  console.log(deleteSQL);
+  queryDB(deleteSQL)
+    .then(() => {
+      console.log(`Deleted record for roomId: ${id}`);
+
+      const {roomId, roomPhotos, title, rating, reviewCount, isSuperHost} = req.body;
+
+      let sql = `insert into sdc.roominfo (room_id,title,rating,review_count,is_super_host) values (${roomId},'${title}',${rating},${reviewCount},${isSuperHost});`;
+      roomPhotos.forEach(url => {
+        sql += `insert into sdc.roompictures (room_id,photo_url) values (${roomId},'${url}');`;
+      });
+      queryDB(sql)
+        .then(() => {
+          console.log('Updated ', roomId);
+          res.status(203).send('Updated!');
+        })
+        .catch(error => {
+          console.log(error);
+          res.status(500).send(error);
+        });
+    })
+    .catch(error => {
+      console.log(error);
+      res.status(500).send(error);
+    });
 });
 
 app.delete('/images/:roomId', (req, res) => {
-  let id = Number(req.params.roomId);
-  res.end();
-  // Images.findOneAndRemove({roomId: id})
-  //   .then((data) => {
-  //     if (data) {
-  //       res.status(201).send(`Deleted record for roomId: ${id} `);
-  //     } else {
-  //       res.status(404).send('No record found to update!');
-  //     } 
-  //   })
-  //   .catch((err) => {
-  //     res.status(500).send(err);
-  //     console.log('error getting room id from images db: ', err);
-  //   });
+  const id = Number(req.params.roomId);
+  const sql = `delete from sdc.roominfo where room_id = ${id};
+              delete from sdc.roompictures  where room_id = ${id};`;
+
+  console.log(sql);
+  queryDB(sql)
+    .then(record => {
+      console.log(`Deleted record for roomId: ${id}`);
+      res.status(202).send('Deleted');
+    })
+    .catch(error => {
+      console.log(error);
+      res.status(500).send(error);
+    });
+
 });
 
 
 app.post('/images/', (req, res) => {
-  let newRecord = new Images();
-  const {roomPhotos, room_id, title, rating, review_count, is_super_host} = req.body;
-  newRecord.roomPhotos = roomPhotos;
-  newRecord.roomId = roomId;
-  newRecord.title = title;
-  newRecord.rating = rating;
-  newRecord.reviewCount = reviewCount;
-  newRecord.isSuperHost = isSuperHost;
-  if (!newRecord.roomId) {
-    res.status(403).send('Error! Not roomId field provided!');
-  } else {
-    res.end();
-    // Images.findOne({roomId: newRecord.roomId}, (err, data) => {
-    //   if (err) {
-    //     res.status(500).send(err);
-    //   } else {
-    //     if (!!data) {
-    //       res.status(403).send('Record already exists!');
-    //     } else {
-    //       newRecord.save();
-    //       res.status(201).send('Success!');
-    //     }
-    //   }
-    // });
-  }
+  // console.log(req.body);
+  const {roomId, roomPhotos, title, rating, reviewCount, isSuperHost} = req.body;
+
+  let sql = `insert into sdc.roominfo (room_id,title,rating,review_count,is_super_host) values (${roomId},'${title}',${rating},${reviewCount},${isSuperHost});`;
+
+  roomPhotos.forEach(url => {
+    sql += `insert into sdc.roompictures (room_id,photo_url) values (${roomId},'${url}');`;
+  });
+  queryDB(sql)
+    .then(() => {
+      console.log('Inserted record ', roomId);
+      res.status(201).send('Success!');
+    })
+    .catch(error => {
+      console.log(error);
+      res.status(500).send(error);
+    });
 });
 
 app.listen(port, () => {
   console.log(`listening on port ${port}`);
 });
-
-//for testing instead of listen above:
-//module.exports = app;

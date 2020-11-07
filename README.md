@@ -75,12 +75,12 @@ $ npm run build
         "rating":4
     }
   Responce:
-    {statusCode: 202, message: 'Success!'}
+    {statusCode: 203, message: 'Updated!'}
 
 # DELETE /images/:2 
 
   Responce:
-    {statusCode: 202, message: 'Deleted record for roomId: 2'}
+    {statusCode: 202, message: 'Deleted!'}
 
 ## ########################## POSTGRES DB SETUP
 
