@@ -13,6 +13,11 @@ var config = {
   password: 'password',
   port: 5432,
 };
+// psql -h localhost -p 5432 -U me -d oddesey
+// bash-4.2$ psql -h 127.0. 0.1 -p <port number of remote machine> -d <database name which you want to connect> -U <username of the database server>
+// CREATE DATABASE localhost WITH OWNER me;
+// ALTER USER me WITH PASSWORD 'password';
+// sudo -i -u postgres
 
 // Create the SCHEMA with user me if it doesn't exist
 const createSchemaAndTables = () => {
@@ -36,9 +41,9 @@ const createSchemaAndTables = () => {
         photo_url TEXT
       );`)
       // CREATE INDEX info
-      // ON roomInfo (room_id);
+      // ON sdc.roomInfo (room_id);
       // CREATE INDEX pic
-      //   ON roompictures (room_id);
+      //   ON sdc.roompictures (room_id);
         .then(() => {
           client.release();
           console.log('Schema created');
@@ -51,3 +56,11 @@ const createSchemaAndTables = () => {
 };
 
 createSchemaAndTables();
+
+
+// SELECT * FROM pg_indexes WHERE schemaname = 'sdc';
+
+// ec2-100-26-241-115.compute-1.amazonaws.com
+
+const sql = `select s.title,s.rating, s.review_count, s.is_super_host, r.photo_url from sdc.roominfo s, sdc.roompictures r where s.room_id = r.room_id and s.room_id = ${id}`;
+  

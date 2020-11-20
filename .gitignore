@@ -9,3 +9,4 @@ config/cloudinary.js
 .env
 sandbox.js
 newrelic_agent.log
+memcacged.config.js

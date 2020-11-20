@@ -54,4 +54,3 @@ const seedPictureUrls = () => {
     }).finally(() => pool.end());
 };
 module.exports = { seedroominfo, seedPictureUrls };
-                                                                                                                                                                                                    

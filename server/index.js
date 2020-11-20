@@ -6,24 +6,28 @@ const path = require('path');
 const pg = require('pg');
 const port = 3001;
 const app = express();
-
+const cache = require('./middleware');
+// const Memcached = require('memcached');
 
 require('newrelic');
+
+
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(cors());
 app.use(express.static(__dirname + '/../client/dist'));
+// app.use(cache);
 
 const config = {
   user: 'me',
-  host: 'localhost',
+  host: 'ec2-100-26-241-115.compute-1.amazonaws.com',
   database: 'oddesey',
   password: 'password',
   port: 5432,
 };
-
-// Run DB query
+// sudo -i -u postgres --> psql
+// Run DB query 
 const queryDB = (query)=> {
   const pool = new pg.Pool(config);
   return new Promise((resolve, reject) => {
@@ -48,18 +52,40 @@ const queryDB = (query)=> {
 };
 
 app.get('/:id', (req, res) => {
-  // console.log('here');
   res.sendFile(path.join(__dirname + './../client/dist/index.html'));
 });
 
-app.get('/images/:roomId', (req, res) => {
-  // console.log(count++);
-  let id = Number(req.params.roomId);
-  // console.log('typeof id: ', typeof id);
-  const sql = `select s.title,s.rating, s.review_count, s.is_super_host, r.photo_url from sdc.roominfo s, sdc.roompictures r where s.room_id = r.room_id and s.room_id = ${id}`;
+app.get('/images', (req, res) => {
+  // const id = Number(req.params.roomId);
+  const sql = 'select * from sdc.images';
+  console.log('in module');
   queryDB(sql)
     .then(record => {
-      // console.log(record);
+      if (record.length) {
+        let output = {};
+        output.title = record[0].title;
+        output.rating = record[0].rating;
+        output.review_count = record[0].review_count;
+        output.is_super_host = record[0].is_super_host;
+        output.roomPhotos = record.map(item => item.photo_url);
+        res.send(record);
+      } else {
+        res.status(404).send('Not found!');
+      }
+    })
+    .catch(error => {
+      res.status(500).send(error);
+      console.log(error);
+    });
+});
+
+
+app.get('/images/:roomId', cache(13), (req, res) => {
+  const id = Number(req.params.roomId);
+  const sql = `select * from imagesView where room_id =${id}`;
+  // console.log(sql);
+  queryDB(sql)
+    .then(record => {
       if (record.length) {
         let output = {};
         output.title = record[0].title;

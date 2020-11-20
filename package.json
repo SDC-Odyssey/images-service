@@ -4,13 +4,13 @@
   "description": "images service for FEC WaterBnB",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "k6 run server/loadTest.js",
     "start": "nodemon server/index.js",
     "dev": "webpack-dev-server --open=3001",
     "build": "webpack -d --watch",
     "seedRoomInfoTable": "time npx run-func database/seedPostgres seedroominfo",
     "seedPictureUrlsTable": "time npx run-func database/seedPostgres seedPictureUrls",
-    "createData": "time node database/helpers/generateDataToCSV.js",
+    "createData": "node database/helpers/generateDataToCSV.js",
     "schema": "node database/createSchemaAndTables.js"
   },
   "author": "Amanda",
@@ -44,6 +44,7 @@
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "faker": "^5.1.0",
+    "memcached": "^2.2.2",
     "mongoose": "^5.9.27",
     "multer": "^1.4.2",
     "newrelic": "^6.14.0",

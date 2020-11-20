@@ -24,3 +24,5 @@ export default function () {
   };
   http.post(url, payload, params);
 }
+
+//to run from terminal: k6 run --vus 200 --iterations 2000 server/postTest.js 

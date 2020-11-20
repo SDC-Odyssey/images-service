@@ -10,7 +10,7 @@ exports.config = {
   /**
    * Array of application names.
    */
-  app_name: ['images'],
+  app_name: ['proxy'],
   /**
    * Your New Relic license key.
    */

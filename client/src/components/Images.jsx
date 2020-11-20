@@ -5,7 +5,6 @@ import PhotoGrid from './PhotoGrid/PhotoGrid.jsx';
 import Carousel from './Carousel/Carousel.jsx';
 import Description from './Description/Description.jsx';
 
-// let serverUrl = 'http://ec2-3-21-170-25.us-east-2.compute.amazonaws.com:3001';
 let serverUrl = 'http://localhost:3001';
 
 class Images extends React.Component {
