@@ -6,8 +6,10 @@ const path = require('path');
 const pg = require('pg');
 const port = 3001;
 const app = express();
-const cache = require('./middleware');
-// const Memcached = require('memcached');
+const redis = require('redis');
+const redisConfig = require('./redis.config.js');
+
+const client = redis.createClient(redisConfig);
 
 require('newrelic');
 
@@ -17,7 +19,6 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(cors());
 app.use(express.static(__dirname + '/../client/dist'));
-// app.use(cache);
 
 const config = {
   user: 'me',
@@ -51,36 +52,26 @@ const queryDB = (query)=> {
   });
 };
 
+// cache middleware
+const cacheMiddleware = (req, res, next) => {
+  const id = Number(req.params.roomId);  
+  client.get(id, (err, data) => {
+    if (err) { throw err; }
+    if (data !== null) {
+      res.send(JSON.parse(data));
+    } else {
+      next();
+    }
+  });
+
+};
 app.get('/:id', (req, res) => {
   res.sendFile(path.join(__dirname + './../client/dist/index.html'));
 });
 
-app.get('/images', (req, res) => {
-  // const id = Number(req.params.roomId);
-  const sql = 'select * from sdc.images';
-  console.log('in module');
-  queryDB(sql)
-    .then(record => {
-      if (record.length) {
-        let output = {};
-        output.title = record[0].title;
-        output.rating = record[0].rating;
-        output.review_count = record[0].review_count;
-        output.is_super_host = record[0].is_super_host;
-        output.roomPhotos = record.map(item => item.photo_url);
-        res.send(record);
-      } else {
-        res.status(404).send('Not found!');
-      }
-    })
-    .catch(error => {
-      res.status(500).send(error);
-      console.log(error);
-    });
-});
 
 
-app.get('/images/:roomId', cache(13), (req, res) => {
+app.get('/images/:roomId', cacheMiddleware, (req, res) => {
   const id = Number(req.params.roomId);
   const sql = `select * from imagesView where room_id =${id}`;
   // console.log(sql);
@@ -93,6 +84,7 @@ app.get('/images/:roomId', cache(13), (req, res) => {
         output.review_count = record[0].review_count;
         output.is_super_host = record[0].is_super_host;
         output.roomPhotos = record.map(item => item.photo_url);
+        client.setex(id, 400000, JSON.stringify(output));
         res.send(output);
       } else {
         res.status(404).send('Not found!');
@@ -133,6 +125,32 @@ app.put('/images/:roomId', (req, res) => {
     .catch(error => {
       console.log(error);
       res.status(500).send(error);
+    });
+});
+
+
+app.get('/images', (req, res) => {
+  const id = Number(req.params.roomId);
+  const sql = 'select * from sdc.images';
+  console.log('in module');
+  queryDB(sql)
+    .then(record => {
+      if (record.length) {
+        let output = {};
+        output.title = record[0].title;
+        output.rating = record[0].rating;
+        output.review_count = record[0].review_count;
+        output.is_super_host = record[0].is_super_host;
+        output.roomPhotos = record.map(item => item.photo_url);
+        
+        res.send(record);
+      } else {
+        res.status(404).send('Not found!');
+      }
+    })
+    .catch(error => {
+      res.status(500).send(error);
+      console.log(error);
     });
 });
 

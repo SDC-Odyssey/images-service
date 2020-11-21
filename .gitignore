@@ -5,8 +5,8 @@ package-lock.json
 upload
 
 config/cloudinary.js
-
+dump.rdb
 .env
 sandbox.js
 newrelic_agent.log
-memcacged.config.js
+redis.config.js
